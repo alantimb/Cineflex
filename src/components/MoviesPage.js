@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export default function MoviesPage() {
   const moviesURL = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
-
   const [movies, setMovies] = useState(undefined);
 
   useEffect(() => {
@@ -13,7 +12,7 @@ export default function MoviesPage() {
       .get(moviesURL)
       .then((res) => setMovies(res.data))
       .catch((err) => console.log(err.response.data));
-  });
+  }, []);
 
   if (!movies) {
     return <Loading>Carregando...</Loading>;
@@ -62,7 +61,7 @@ const MoviesPageContainer = styled.div`
     line-height: 28px;
     align-items: center;
     margin-top: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
 `;
 
