@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Filme from "./components/Filme";
-import Sessoes from "./components/Sessoes";
+import MoviesPage from "./components/MoviesPage";
+import Sessions from "./components/Sessions";
 import Assentos from "./components/Assentos";
 import Sucesso from "./components/Sucesso";
 import NavBar from "./components/NavBar";
@@ -12,8 +12,8 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Routes>
-        <Route path="/" element={<Filme />} />
-        {/* <Route path="/sessoes/:idFilme" element={<Sessoes />} /> */}
+        <Route path="/" element={<MoviesPage />} />
+        <Route path="/sessoes/:idFilme" element={<Sessions />} />
         {/* <Route path="/assentos/idSessao" element={<Assentos />} /> */}
         {/* <Route path="/sucesso" element={<Sucesso />} /> */}
       </Routes>
