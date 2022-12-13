@@ -11,9 +11,13 @@ export default function Footer({
       <MoviePosterContainer src={moviePoster} />
       <MovieInformationsContainer>
         <p>{movieTitle}</p>
-        <p>
-          {movieData} - {movieTime}
-        </p>
+        {movieData === undefined ? (
+          <p></p>
+        ) : (
+          <p>
+            {movieData} - {movieTime}
+          </p>
+        )}
       </MovieInformationsContainer>
     </FooterContainer>
   );

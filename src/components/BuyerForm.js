@@ -17,17 +17,18 @@ export default function BuyerForm({
   function handleForm(e) {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    console.log(formData);
   }
 
   function checkout(e) {
     e.preventDefault();
 
-    const dataPost = {
+    const body = {
       ids: selectedSeats.map((s) => s.id),
       ...formData,
     };
 
-    const dataSucess = {
+    const info = {
       movie: seats.movie.title,
       date: seats.day.date,
       hour: seats.name,
@@ -37,13 +38,12 @@ export default function BuyerForm({
     };
 
     axios
-      .post(postURL, dataPost)
+      .post(postURL, body)
       .then((res) => {
-        setSuccessData(dataSucess);
+        // setSuccessData(info);
         setSelectedSeats([]);
         navigate("/sucesso");
-      })
-      .catch((err) => alert(err.response.data));
+      }).catch((err) => console.log(err.response.status));
   }
 
   return (
@@ -55,7 +55,6 @@ export default function BuyerForm({
         value={formData.name}
         placeholder="Digite seu nome..."
         onChange={handleForm}
-        required
       />
       CPF do comprador:
       <input
@@ -64,7 +63,6 @@ export default function BuyerForm({
         value={formData.cpf}
         placeholder="Digite seu CPF..."
         onChange={handleForm}
-        required
       />
       <button type="submit">Reservar assento(s)</button>
     </DataSubmissionForm>
@@ -98,6 +96,7 @@ const DataSubmissionForm = styled.form`
       font-style: italic;
     }
   }
+
   button {
     width: 225px;
     height: 43px;

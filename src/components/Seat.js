@@ -1,25 +1,33 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Seat({ seat, handleSeat }) {
+export default function Seat({ seat, handleSeat, seatsColors, selected }) {
+  const [seatStatus, setSeatStatus] = useState(seatsColors.selected);
+
+  useEffect(() => {
+    if (selected) {
+      setSeatStatus(seatsColors.selected);
+    } else if (seat.isAvailable) {
+      setSeatStatus(seatsColors.available);
+    } else {
+      setSeatStatus(seatsColors.unavailable);
+    }
+  }, [selected, seat]);
+
   return (
-    <SeatContainer>
-      {!seat.selected ? (
-        <div
-          className={`seat ${seat.isAvailable}`}
-          onClick={() => handleSeat(seat)}
-        >
-          {seat.id}
-        </div>
-      ) : (
-        <div className={`seat selected`} onClick={() => handleSeat(seat)}>
-          {seat.id}
-        </div>
-      )}
+    <SeatContainer seatStatus={seatStatus} onClick={() => handleSeat(seat)}>
+      {seat.name}
     </SeatContainer>
   );
 }
 
 const SeatContainer = styled.li`
+  &:hover {
+    cursor: pointer;
+    opacity: ${(props) =>
+      props.seatStatus.background === "#FBE192" ? 100 : 50}%;
+  }
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,12 +36,7 @@ const SeatContainer = styled.li`
   height: 26px;
 
   font-size: 11px;
-  background-color: #C3CFD9;
-  border: 1px solid #C3CFD9;
   border-radius: 12px;
-
-  &:hover {
-    cursor: pointer;
-    opacity: 50%;
-  }
+  border: 1px solid ${(props) => props.seatStatus.border};
+  background-color: ${(props) => props.seatStatus.background};
 `;

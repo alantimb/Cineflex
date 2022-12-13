@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-export default function SeatsCaption({ seatColors }) {
+export default function SeatsCaption({ seatsColors }) {
   return (
     <CaptionContainer>
       <CaptionItem>
-        <CaptionCircle status={seatColors.selected} />
+        <CaptionCircle status={seatsColors.selected} />
         Selecionado
       </CaptionItem>
       <CaptionItem>
-        <CaptionCircle status={seatColors.available} />
+        <CaptionCircle status={seatsColors.available} />
         Disponível
       </CaptionItem>
       <CaptionItem>
-        <CaptionCircle status={seatColors.unavailable} />
+        <CaptionCircle status={seatsColors.unavailable} />
         Indisponível
       </CaptionItem>
     </CaptionContainer>

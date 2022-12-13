@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled, { StyledComponent } from "styled-components";
+import styled from "styled-components";
 import Footer from "../components/Footer";
 import Seat from "../components/Seat";
 import LoadingGif from "../assets/images/loading.gif";
@@ -34,26 +34,18 @@ export default function Seats({ setSuccessData }) {
     );
   }
 
-  console.log(seats);
-
-  //Faz o click em cada componente Seat
   function handleSeat(seat) {
-    //Se o assento estiver indisponível não faz nada
     if (seat.isAvailable === false) {
-      return;
+      return alert("Assento não disponível.");
+    } else {
+      const selected = selectedSeats.some((s) => seat.id === s.id);
+      if (selected) {
+        const selectedSeatsList = selectedSeats.some((s) => seat.id === s.id);
+        setSelectedSeats(selectedSeatsList);
+      } else {
+        setSelectedSeats([...selectedSeats, seat]);
+      }
     }
-    //Toggle - "Liga e desliga" a seleção
-    seat.selected = !seat.selected;
-
-    //Se o estado atual é não selecionado precisamos remover o assento
-    if (!seat.selected) {
-      const filteredSeats = selectedSeats.filter((s) => !(s.id === seat.id));
-      setSelectedSeats([...filteredSeats]);
-      return;
-    }
-    //Adicionamos o assento a lista de assentos selecionados
-    setSelectedSeats([...selectedSeats, seat]);
-    return;
   }
 
   return (
@@ -61,7 +53,13 @@ export default function Seats({ setSuccessData }) {
       <h2>Selecione o(s) assento(s)</h2>
       <SeatsContainer>
         {seats.seats.map((s, i) => (
-          <Seat key={i} seat={s} handleSeat={handleSeat} />
+          <Seat
+            key={i}
+            seat={s}
+            handleSeat={handleSeat}
+            seatsColors={seatsColors}
+            selected={selectedSeats.some((r) => s.id === r.id)}
+          />
         ))}
       </SeatsContainer>
       <SeatsCaption seatsColors={seatsColors} />
