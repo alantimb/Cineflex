@@ -5,8 +5,10 @@ import SeatsPage from "./Pages/SeatsPage";
 import SucessPage from "./Pages/SucessPage";
 import NavBar from "./components/NavBar";
 import GlobalStyle from "./assets/styles/GlobalStyle";
+import { useState } from "react";
 
 function App() {
+  const [successData, setSuccessData] = useState({});
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -14,8 +16,14 @@ function App() {
       <Routes>
         <Route path="/" element={<MoviesPage />} />
         <Route path="/sessoes/:idFilme" element={<SessionsPage />} />
-        <Route path="/assentos/:idSessao" element={<SeatsPage />} />
-        {/* <Route path="/sucesso" element={<SucessPage />} /> */}
+        <Route
+          path="/assentos/:idSessao"
+          element={<SeatsPage setSuccessData={setSuccessData} />}
+        />
+        <Route
+          path="/sucesso"
+          element={<SucessPage successData={successData} />}
+        />
       </Routes>
     </BrowserRouter>
   );

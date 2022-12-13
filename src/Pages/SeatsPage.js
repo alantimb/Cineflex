@@ -6,12 +6,18 @@ import Footer from "../components/Footer";
 import Seat from "../components/Seat";
 import LoadingGif from "../assets/images/loading.gif";
 import BuyerForm from "../components/BuyerForm";
+import SeatsCaption from "../components/SeatsCaption";
 
-export default function Seats() {
+export default function Seats({ setSuccessData }) {
   const { idSessao } = useParams();
   const seatsURL = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`;
   const [seats, setSeats] = useState(undefined);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const seatsColors = {
+    selected: { background: "#1AAE9E", border: "#0E7D71" },
+    available: { background: "#C3CFD9", border: "#808F9D" },
+    unavailable: { background: "#FBE192", border: "#F7C52B" },
+  };
 
   useEffect(() => {
     axios
@@ -58,6 +64,7 @@ export default function Seats() {
           <Seat key={i} seat={s} handleSeat={handleSeat} />
         ))}
       </SeatsContainer>
+      <SeatsCaption seatsColors={seatsColors} />
       <BuyerForm
         seats={seats}
         selectedSeats={selectedSeats}

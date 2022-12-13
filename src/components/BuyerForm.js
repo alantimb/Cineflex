@@ -1,17 +1,71 @@
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-export default function BuyerForm() {
+export default function BuyerForm({
+  seats,
+  selectedSeats,
+  setSelectedSeats,
+  setSuccessData,
+}) {
+  const [formData, setFormData] = useState({ name: "", cpf: "" });
+  const navigate = useNavigate();
+  const postURL =
+    "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
+
+  function handleForm(e) {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
+  function checkout(e) {
+    e.preventDefault();
+
+    const dataPost = {
+      ids: selectedSeats.map((s) => s.id),
+      ...formData,
+    };
+
+    const dataSucess = {
+      movie: seats.movie.title,
+      date: seats.day.date,
+      hour: seats.name,
+      buyer: formData.name,
+      cpf: formData.cpf,
+      seats: selectedSeats.map((s) => s.name),
+    };
+
+    axios
+      .post(postURL, dataPost)
+      .then((res) => {
+        setSuccessData(dataSucess);
+        setSelectedSeats([]);
+        navigate("/sucesso");
+      })
+      .catch((err) => alert(err.response.data));
+  }
+
   return (
-    <DataSubmissionForm>
+    <DataSubmissionForm onSubmit={checkout}>
       Nome do comprador:
       <input
         name="name"
         type="text"
+        value={formData.name}
         placeholder="Digite seu nome..."
+        onChange={handleForm}
         required
       />
       CPF do comprador:
-      <input name="cpf" type="text" placeholder="Digite seu CPF..." required />
+      <input
+        name="cpf"
+        type="text"
+        value={formData.cpf}
+        placeholder="Digite seu CPF..."
+        onChange={handleForm}
+        required
+      />
       <button type="submit">Reservar assento(s)</button>
     </DataSubmissionForm>
   );
@@ -56,6 +110,7 @@ const DataSubmissionForm = styled.form`
     align-items: center;
     justify-content: center;
     text-align: center;
+    align-self: center;
     &:disabled {
       background-color: lightgray;
     }
