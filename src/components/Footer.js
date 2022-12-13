@@ -7,7 +7,7 @@ export default function Footer({
   movieTime,
 }) {
   return (
-    <FooterContainer>
+    <FooterContainer data-test="footer">
       <MoviePosterContainer src={moviePoster} />
       <MovieInformationsContainer>
         <p>{movieTitle}</p>

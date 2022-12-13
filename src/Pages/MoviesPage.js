@@ -29,7 +29,7 @@ export default function Movies() {
       <MoviesContainer>
         {movies.map((m) => (
           <Link to={`/sessoes/${m.id}`} key={m.id}>
-            <MovieContainer>
+            <MovieContainer data-test="movie">
               <img src={m.posterURL} />
             </MovieContainer>
           </Link>

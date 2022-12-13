@@ -15,7 +15,7 @@ export default function Seat({ seat, handleSeat, seatsColors, selected }) {
   }, [selected, seat]);
 
   return (
-    <SeatContainer seatStatus={seatStatus} onClick={() => handleSeat(seat)}>
+    <SeatContainer data-test="seat" seatStatus={seatStatus} onClick={() => handleSeat(seat)}>
       {seat.name}
     </SeatContainer>
   );

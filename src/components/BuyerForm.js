@@ -51,6 +51,7 @@ export default function BuyerForm({
     <DataSubmissionForm onSubmit={checkout}>
       Nome do comprador:
       <input
+        data-test="client-name"
         name="name"
         type="text"
         value={formData.name}
@@ -59,13 +60,16 @@ export default function BuyerForm({
       />
       CPF do comprador:
       <input
+        data-test="client-cpf"
         name="cpf"
         type="text"
         value={formData.cpf}
         placeholder="Digite seu CPF..."
         onChange={handleForm}
       />
-      <button type="submit">Reservar assento(s)</button>
+      <button data-test="book-seat-btn" type="submit">
+        Reservar assento(s)
+      </button>
     </DataSubmissionForm>
   );
 }

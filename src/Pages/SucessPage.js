@@ -11,7 +11,7 @@ export default function SucessPage({ successData }) {
         Pedido feito <br /> com sucesso!
       </h1>
 
-      <PurchaseInformationContainer>
+      <PurchaseInformationContainer data-test="movie-info">
         <h2>Filme e sessão</h2>
         <p>{movie}</p>
         <p>
@@ -19,20 +19,20 @@ export default function SucessPage({ successData }) {
         </p>
       </PurchaseInformationContainer>
 
-      <PurchaseInformationContainer>
+      <PurchaseInformationContainer data-test="seats-info">
         <h2>Ingresso(s)</h2>
         {seats.map((s) => (
           <p key={s}>Assento {s}</p>
         ))}
       </PurchaseInformationContainer>
 
-      <PurchaseInformationContainer>
+      <PurchaseInformationContainer data-test="client-info">
         <h2>Comprador</h2>
         <p>Nome: {buyer}</p>
         <p>CPF: {cpf}</p>
       </PurchaseInformationContainer>
 
-      <Link to="/">
+      <Link to="/" data-test="go-home-btn">
         <button>Voltar para Home</button>
       </Link>
     </SucessPageContainer>
