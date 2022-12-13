@@ -40,10 +40,11 @@ export default function BuyerForm({
     axios
       .post(postURL, body)
       .then((res) => {
-        // setSuccessData(info);
+        setSuccessData(info);
         setSelectedSeats([]);
         navigate("/sucesso");
-      }).catch((err) => console.log(err.response.status));
+      })
+      .catch((err) => console.log(err.response.status));
   }
 
   return (

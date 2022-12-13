@@ -50,7 +50,7 @@ export default function Seats({ setSuccessData }) {
 
   return (
     <SeatsPageContainer>
-      <h2>Selecione o(s) assento(s)</h2>
+      <h1>Selecione o(s) assento(s)</h1>
       <SeatsContainer>
         {seats.seats.map((s, i) => (
           <Seat
@@ -67,6 +67,7 @@ export default function Seats({ setSuccessData }) {
         seats={seats}
         selectedSeats={selectedSeats}
         setSelectedSeats={setSelectedSeats}
+        setSuccessData={setSuccessData}
       />
       <Footer
         movieTitle={seats.movie.title}
@@ -97,7 +98,7 @@ const SeatsPageContainer = styled.div`
   margin-top: 70px;
   margin-bottom: 120px;
 
-  h2 {
+  h1 {
     color: #293845;
     font-size: 24px;
     line-height: 28px;
