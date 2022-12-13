@@ -20,13 +20,14 @@ const NavBarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
 
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 34px;
   line-height: 40px;
 
-  top: 0;
   a {
     text-decoration: none;
     color: #e8833a;

@@ -2,8 +2,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import LoadingGif from "../assets/images/loading.gif";
 
-export default function MoviesPage() {
+export default function Movies() {
   const moviesURL = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
   const [movies, setMovies] = useState(undefined);
 
@@ -15,7 +16,11 @@ export default function MoviesPage() {
   }, []);
 
   if (!movies) {
-    return <Loading>Carregando...</Loading>;
+    return (
+      <Loading>
+        <img src={LoadingGif} />
+      </Loading>
+    );
   }
 
   return (
@@ -37,10 +42,6 @@ export default function MoviesPage() {
 const Loading = styled.div`
   width: 100vw;
   height: 100vh;
-  color: #000000;
-  font-family: "Roboto", sans-serif;
-  font-size: 30px;
-  font-weight: 700;
 
   display: flex;
   justify-content: center;
@@ -60,7 +61,7 @@ const MoviesPageContainer = styled.div`
     font-size: 24px;
     line-height: 28px;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 100px;
     margin-bottom: 40px;
   }
 `;
@@ -88,5 +89,10 @@ const MovieContainer = styled.div`
   img {
     width: 130px;
     height: 190px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 50%;
+    }
   }
 `;

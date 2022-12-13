@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MoviesPage from "./components/MoviesPage";
-import Sessions from "./components/SessionsPage";
-import Seats from "./components/SeatsPage";
-import Sucesso from "./components/Sucesso";
+import MoviesPage from "./Pages/MoviesPage";
+import SessionsPage from "./Pages/SessionsPage";
+import SeatsPage from "./Pages/SeatsPage";
+import SucessPage from "./Pages/SucessPage";
 import NavBar from "./components/NavBar";
 import GlobalStyle from "./assets/styles/GlobalStyle";
 
@@ -13,9 +13,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<MoviesPage />} />
-        <Route path="/sessoes/:idFilme" element={<Sessions />} />
-        <Route path="/assentos/idSessao" element={<Seats />} />
-        {/* <Route path="/sucesso" element={<Sucesso />} /> */}
+        <Route path="/sessoes/:idFilme" element={<SessionsPage />} />
+        <Route path="/assentos/:idSessao" element={<SeatsPage />} />
+        {/* <Route path="/sucesso" element={<SucessPage />} /> */}
       </Routes>
     </BrowserRouter>
   );

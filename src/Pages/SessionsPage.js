@@ -2,40 +2,47 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../components/Footer";
+import LoadingGif from "../assets/images/loading.gif";
 
 export default function Sessions() {
   const { idFilme } = useParams();
-  const movieURL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
-  const [movie, setMovie] = useState(undefined);
+  const sessionURL = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${idFilme}/showtimes`;
+  const [session, setSession] = useState(undefined);
 
   useEffect(() => {
     axios
-      .get(movieURL)
-      .then((res) => setMovie(res.data))
+      .get(sessionURL)
+      .then((res) => setSession(res.data))
       .catch((error) => console.log(error.response.data));
   }, []);
 
-  console.log(movie);
-
-  if (!movie) {
-    return <Loading>Carregando...</Loading>;
+  if (!session) {
+    return (
+      <Loading>
+        <img src={LoadingGif} />
+      </Loading>
+    );
   }
 
   return (
     <SessionsPageContainer>
       <h2>Selecione o horário</h2>
       <SessionsContainer>
-        {movie.days.map((m, i) => (
+        {session.days.map((m, i) => (
           <SessionContainer>
             <p>
               {m.weekday} - {m.date}
             </p>
             {m.showtimes.map((s) => (
-              <button>{s.name}</button>
+              <Link to={`/assentos/${s.id}`} key={s.id}>
+                <button>{s.name}</button>
+              </Link>
             ))}
           </SessionContainer>
         ))}
       </SessionsContainer>
+      <Footer movieTitle={session.title} moviePoster={session.posterURL} />
     </SessionsPageContainer>
   );
 }
@@ -43,10 +50,6 @@ export default function Sessions() {
 const Loading = styled.div`
   width: 100vw;
   height: 100vh;
-  color: #000000;
-  font-family: "Roboto", sans-serif;
-  font-size: 30px;
-  font-weight: 700;
 
   display: flex;
   justify-content: center;
@@ -66,7 +69,7 @@ const SessionsPageContainer = styled.div`
     font-size: 24px;
     line-height: 28px;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 100px;
     margin-bottom: 40px;
   }
 `;
@@ -99,5 +102,10 @@ const SessionContainer = styled.div`
     font-size: 18px;
     line-height: 21px;
     align-items: center;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 50%;
+    }
   }
 `;
